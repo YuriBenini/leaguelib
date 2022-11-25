@@ -1,38 +1,38 @@
 # LeagueLib
-#### By [Anshu Chimala](http://www.achimala.com), Tyrus Tenneson, and Gavin Saldanha.
+#### Por [Anshu Chimala](http://www.achimala.com), Tyrus Tenneson e Gavin Saldanha.
 
-LeagueLib is a Java library for the [League of Legends](http://www.leagueoflegends.com) [RTMPS](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol) API, built on top of [LoLRTMPSClient](http://code.google.com/p/lolrtmpsclient) by Gabriel Van Eyck.
+LeagueLib é uma biblioteca Java para a API [League of Legends](http://www.leagueoflegends.com) [RTMPS](http://en.wikipedia.org/wiki/Real_Time_Messaging_Protocol), construída sobre [LoLRTMPSClient] (http://code.google.com/p/lolrtmpsclient) por Gabriel Van Eyck.
 
-LeagueLib is built to power efficient, scalable, concurrent League of Legends web applications. Best served on a framework like [Play](http://www.playframework.com/).
+O LeagueLib foi desenvolvido para alimentar aplicativos da Web simultâneos, escaláveis ​​e eficientes do League of Legends. Melhor servido em uma estrutura como [Play](http://www.playframework.com/).
 
-This is the stuff we built to replace the backend that runs [LoLTeam](http://www.lolteam.net) and [LoLTalk](http://loltalk.achimala.com). Our original code did its job, but wasn't scalable or efficient enough to meet our rising traffic. In response, we started building a new, highly scalable, massively concurrent framework for these applications, to serve tens of thousands of players all over the world. And we're making it open source so that other developers like us can make awesome League of Legends apps.
+Este é o material que construímos para substituir o back-end que executa [LoLTeam](http://www.lolteam.net) e [LoLTalk](http://loltalk.achimala.com). Nosso código original fazia seu trabalho, mas não era escalável ou eficiente o suficiente para atender ao nosso tráfego crescente. Em resposta, começamos a construir uma estrutura nova, altamente escalável e massivamente simultânea para esses aplicativos, para atender a dezenas de milhares de jogadores em todo o mundo. E estamos tornando-o de código aberto para que outros desenvolvedores como nós possam criar aplicativos incríveis de League of Legends.
 
-### Features
-* Completely asynchronous API calls to the League of Legends RTMP server.
-* Synchronous API calls just as easily, for use in simple applications or on top of distributed, scalable, concurrent platforms like [Akka](http://www.akka.io).
-* Easy support for multiple League of Legends accounts for increased concurrency and minimal rate-limiting side effects.
-* Efficient design: request only as much information as you need, using the same API calls and structure that League of Legends uses internally.
-* Clean MVC patterns: Accounts can easily be marshaled to files or recorded in databases, distributed to different account queues for different servers, and a single LeagueSummoner model can contain references to real-time data across your application that updates in place.
+### Características
+* Chamadas de API completamente assíncronas para o servidor RTMP de League of Legends.
+* Chamadas de API síncronas com a mesma facilidade, para uso em aplicativos simples ou em plataformas distribuídas, escaláveis ​​e simultâneas como [Akka](http://www.akka.io).
+* Suporte fácil para várias contas de League of Legends para maior simultaneidade e efeitos colaterais mínimos de limitação de taxa.
+* Design eficiente: solicite apenas o máximo de informações necessárias, usando as mesmas chamadas de API e estrutura que o League of Legends usa internamente.
+* Padrões MVC limpos: as contas podem ser facilmente empacotadas em arquivos ou registradas em bancos de dados, distribuídas para diferentes filas de contas para diferentes servidores, e um único modelo LeagueSummoner pode conter referências a dados em tempo real em seu aplicativo que são atualizados no local.
 
-### Usage
+### Uso
 
-We intend to put up a better form of documentation in the future, but until then, here are some basic implementation notes.
-* LeagueLib doesn't embed any kind of thread/job scheduling or distributed computing architecture. We figured more than enough of these exist and we instead chose to build something that could plug into any of them easily. For LoLTeam and LoLTalk, we simply wrote a layer on top of LeagueLib that plugs it into Play Framework's asynchronous job scheduling built on top of Akka, which runs on multiple processes distributed across the cloud via Heroku.
-* LeagueLib was designed with the primary goal of giving us scaffolding to build LoLTeam and LoLTalk on top of. As such, it is robust but not necessarily completely feature complete. We're going to keep adding on to it.
-* The LeagueSummoner object is the focus of everything in LeagueLib as it is right now. The very fundamental summoner service API calls return empty summoner containers with names and IDs and nothing else. As you request different types of information from different services, they get filled into your single summoner object in place. You should not be maintaining multiple copies of a summoner or throwing them away for no reason.
+Pretendemos apresentar uma melhor forma de documentação no futuro, mas até lá, aqui estão algumas notas básicas de implementação.
+* LeagueLib não incorpora nenhum tipo de agendamento de thread/trabalho ou arquitetura de computação distribuída. Achamos que existem mais do que suficientes e, em vez disso, optamos por construir algo que pudesse se conectar a qualquer um deles facilmente. Para LoLTeam e LoLTalk, simplesmente escrevemos uma camada em cima de LeagueLib que o conecta ao agendamento de trabalho assíncrono do Play Framework criado em cima de Akka, que é executado em vários processos distribuídos na nuvem via Heroku.
+* LeagueLib foi projetado com o objetivo principal de nos dar andaimes para construir LoLTeam e LoLTalk em cima. Como tal, é robusto, mas não necessariamente completo. Nós vamos continuar adicionando a ele.
+* O objeto LeagueSummoner é o foco de tudo no LeagueLib como é agora. As chamadas de API do serviço de invocador muito fundamentais retornam contêineres de invocador vazios com nomes e IDs e nada mais. À medida que você solicita diferentes tipos de informações de diferentes serviços, eles são preenchidos em seu único objeto de invocador. Você não deve manter várias cópias de um invocador ou jogá-las fora sem motivo.
 
-### License
-LeagueLib is licensed under the GNU GPL v3. You may use this code for commercial or non-commercial purposes.
+### Licença
+LeagueLib está licenciado sob a GNU GPL v3. Você pode usar este código para fins comerciais ou não comerciais.
 
-You may:
-* Use LeagueLib in personal or commercial products, with attribution.
-* Modify and distribute LeagueLib, with attribution.
+Você pode:
+* Use LeagueLib em produtos pessoais ou comerciais, com atribuição.
+* Modificar e distribuir LeagueLib, com atribuição.
 
-You may NOT:
-* Sell any portion of LeagueLib.
-* Use or distribute any portion of LeagueLib without the included licensing information, or without attribution.
+Talvez você não:
+* Venda qualquer parte do LeagueLib.
+* Use ou distribua qualquer parte do LeagueLib sem as informações de licenciamento incluídas ou sem atribuição.
 
-### Caution
-LeagueLib is still currently in development. We would advise against using it in production applications until it's ready.
+### Cuidado
+LeagueLib ainda está em desenvolvimento. Aconselhamos não usá-lo em aplicativos de produção até que esteja pronto.
 
-Code pulled off the master branch should always work correctly and pass all tests. We intend to put up sample code soon, but until then you should hopefully be able to figure out how to use LeagueLib by viewing [MainTest.java](https://github.com/achimala/leaguelib/blob/master/src/com/achimala/leaguelib/tests/MainTest.java) or by reading through the comments on the LeagueConnection, LeagueAccount, and *Service.java classes.
+O código retirado do branch master deve sempre funcionar corretamente e passar em todos os testes. Pretendemos colocar um código de amostra em breve, mas até então você deve ser capaz de descobrir como usar LeagueLib visualizando [MainTest.java](https://github.com/achimala/leaguelib/blob/master/src/ com/achimala/leaguelib/tests/MainTest.java) ou lendo os comentários nas classes LeagueConnection, LeagueAccount e *Service.java.
